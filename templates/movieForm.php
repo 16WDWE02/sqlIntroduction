@@ -19,7 +19,7 @@ if(isset($_GET['id'])){
 	<h1><?=$verb;?> Movie</h1>
 	<form method="post" action="<?=$action?>">
 
-		<input type="hidden" name="id" value="<?=$singlemovie['id']?>">
+		<input type="hidden" name="id" value="<?=$singlemovie->id?>">
 
 		<div>
 			<label>Title</label>

@@ -34,7 +34,7 @@ abstract class Database {
 	}
 
 	public function find() {
-
+		
 		$dbc = static::getDatabaseConnection();
 
 		$id = isset($_GET['id']) ? $_GET['id'] : null;

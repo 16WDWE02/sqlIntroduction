@@ -21,7 +21,8 @@ switch ($page) {
  		$controller->show();
  		break;
   	case 'add':
- 		addMovie();
+ 		$controller = new MoviesController;
+ 		$controller->add();
  		break;
  	case 'edit':
  		$controller = new MoviesController;
