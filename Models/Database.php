@@ -3,6 +3,13 @@
 abstract class Database {
 	protected $dbc;
 
+	public function __construct($input){
+		echo "I M AN OBJECT";
+		if(is_numeric($input)){
+			$this->find($input);
+		}
+	}
+
 	protected static function getDatabaseConnection() {
 
 		$dsn = "mysql:host=localhost;dbname=sindhu_db;charset=utf8";
@@ -33,11 +40,9 @@ abstract class Database {
 
 	}
 
-	public function find() {
-		
-		$dbc = static::getDatabaseConnection();
+	public function find($id) {
 
-		$id = isset($_GET['id']) ? $_GET['id'] : null;
+		$dbc = static::getDatabaseConnection();
 
 		$sql = "SELECT " . implode(",", static::$columns) . " FROM " . static::$tablename . " WHERE id=:id"; 
 		
@@ -48,6 +53,7 @@ abstract class Database {
 		$statement->execute();
 
 		$singlerecord = $statement->fetch(PDO::FETCH_ASSOC);
+		var_dump($singlerecord);
 		return $singlerecord;
 
 
