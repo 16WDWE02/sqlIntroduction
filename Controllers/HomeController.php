@@ -1,7 +1,7 @@
 <?php
 
-require "Views/View.php";
-require "Views/HomeView.php";
+// require "Views/View.php";
+// require "Views/HomeView.php";
 
 
 class HomeController extends Controller

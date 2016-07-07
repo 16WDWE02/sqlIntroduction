@@ -1,7 +1,7 @@
 <?php
 
-require "Views/MoviesView.php";
-require "Views/MovieFormView.php";
+// require "Views/MoviesView.php";
+// require "Views/MovieFormView.php";
 
 class MoviesController extends Controller
 {
