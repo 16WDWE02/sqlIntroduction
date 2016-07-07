@@ -83,21 +83,48 @@ abstract class Database {
 				array_push($insertColumns, ":" .$column);
 			}
 
-		$sql .= implode(',', $insertColumns);
-		$sql .= ")";
-var_dump($sql);
+		$sql .= implode(',', $insertColumns). ")";
+		
+		$statement = $dbc->prepare($sql);
 
+		foreach ($columns as $column) {
+			$statement->bindValue(":".$column, $this->$column);
+		}
 
+		$result = $statement->execute();
 
-
-
+		$this->id = $dbc->lastInsertId();
 
 	}
-	public static function deleteMovie() {
-
+	public function update(){
 		$dbc = static::getDatabaseConnection();
 
-		$id = isset($_GET['id']) ? $_GET['id'] : null;
+		$columns = static::$columns;
+
+		unset($columns[array_search('id', $columns)]);
+
+		$sql = "UPDATE " . static::$tablename . " SET ";
+
+		$updateColumns = [];
+
+		foreach ($columns as $column) {
+			array_push($updateColumns, $column. "=:" .$column);
+		}
+
+		$sql .= implode(",", $updateColumns). " WHERE id=:id";
+
+		$statement = $dbc->prepare($sql);
+
+		foreach (static::$columns as $column) {
+			$statement->bindValue(":".$column, $this->$column);
+		}
+
+		$result = $statement->execute();
+
+	}
+	public static function delete($id) {
+
+		$dbc = static::getDatabaseConnection();
 
 		$sql = "DELETE FROM " . static::$tablename . " WHERE id = :id";
 
@@ -108,10 +135,19 @@ var_dump($sql);
 		$statement->execute();
 	}
 	public function __get($name){
+		//when an object is read out in the browser
 		if(in_array($name, static::$columns)){
 			return $this->data[$name];
 		} else {
 			echo "Property '$name' is not found in the data variable";
+		}
+	}
+	public function __set($name, $value){
+		//setting values to the property of objects, which is initially set to null by construct.
+		if(in_array($name, static::$columns)){
+			$this->data[$name] = $value;
+		} else {
+			echo "Property '$name' is not set with value";
 		}
 	}
 }
