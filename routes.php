@@ -24,6 +24,10 @@ switch ($page) {
  		$controller = new MoviesController;
  		$controller->add();
  		break;
+ 	case 'insert':
+ 		$controller = new MoviesController;
+ 		$controller->insert();
+ 		break;
  	case 'edit':
  		$controller = new MoviesController;
  		$controller->edit();

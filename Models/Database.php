@@ -3,10 +3,21 @@
 abstract class Database {
 	protected $dbc;
 
-	public function __construct($input){
-		echo "I M AN OBJECT";
+	protected $data = [];
+
+	public function __construct($input = null){
+		if(static::$columns){
+			foreach (static::$columns as $key) {
+				$this->$key = null;
+			}
+		}
 		if(is_numeric($input)){
 			$this->find($input);
+		}
+		if(is_array($input)){
+			foreach (static::$columns as $column) {
+				$this->$column = $input[$column];
+			}
 		}
 	}
 
@@ -53,8 +64,32 @@ abstract class Database {
 		$statement->execute();
 
 		$singlerecord = $statement->fetch(PDO::FETCH_ASSOC);
-		var_dump($singlerecord);
-		return $singlerecord;
+		
+		$this->data= $singlerecord; 
+		
+	}
+	public function insert() {
+		$dbc = static::getDatabaseConnection();
+
+		$columns = static::$columns;
+
+		unset($columns[array_search('id', $columns)]);
+
+		$sql = "INSERT INTO " . static::$tablename .
+				" (" . implode(',', $columns) . ") VALUES (";
+
+		$insertColumns = [];
+			foreach ($columns as $column) {
+				array_push($insertColumns, ":" .$column);
+			}
+
+		$sql .= implode(',', $insertColumns);
+		$sql .= ")";
+var_dump($sql);
+
+
+
+
 
 
 	}
@@ -71,6 +106,13 @@ abstract class Database {
 		$statement->bindValue(":id", $id);
 
 		$statement->execute();
+	}
+	public function __get($name){
+		if(in_array($name, static::$columns)){
+			return $this->data[$name];
+		} else {
+			echo "Property '$name' is not found in the data variable";
+		}
 	}
 }
 

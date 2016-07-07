@@ -7,17 +7,21 @@ class MoviesController extends Controller
 {
 	public function show() {
 
-		$id = isset($_GET['id']) ? ($_GET['id']) : null;
-
-		$singlemovie = new Movie($id);
-		var_dump($singlemovie);
+		$singlemovie = new Movie($_GET['id']);
 
 		$view = new MoviesView(compact('singlemovie'));
 		$view->render();
 	}
 	public function add() {
-		$view = new MovieFormView;
+		$singlemovie = new Movie;
+
+		$view = new MovieFormView(compact('singlemovie'));
 		$view->render();
+	}
+	public function insert() {
+		$movie = new Movie($_POST);
+		var_dump($movie);
+		$movie->insert();
 	}
 	public function edit() {
 		$movie = new Movie;
