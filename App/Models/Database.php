@@ -1,5 +1,7 @@
 <?php
+namespace App\Models;
 
+use PDO;
 abstract class Database {
 	protected $dbc;
 

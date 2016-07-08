@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Views;
 class HomeView extends View
 {
 	public function render() {

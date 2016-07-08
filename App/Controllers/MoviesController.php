@@ -1,4 +1,9 @@
 <?php
+namespace App\Controllers;
+
+use App\Views\MovieFormView;
+use App\Views\MoviesView;
+use App\Models\Movie;
 
 // require "Views/MoviesView.php";
 // require "Views/MovieFormView.php";

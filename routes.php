@@ -1,8 +1,10 @@
 <?php
 
-require "Controllers/Controller.php";
-require "Controllers/HomeController.php";
-require "Controllers/MoviesController.php";
+namespace App\Controllers;
+
+// require "Controllers/Controller.php";
+// require "Controllers/HomeController.php";
+// require "Controllers/MoviesController.php";
 
 //ternary if operator to get page information
 
@@ -47,7 +49,7 @@ switch ($page) {
 		$controller = new MoviesController;
  		$controller->delete();
  		break;
- 		
+
  	default:
  		echo "Error 404! Page not found.";
  		break;

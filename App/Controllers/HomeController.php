@@ -1,4 +1,9 @@
 <?php
+namespace App\Controllers;
+
+use App\Models\Movie;
+use App\Views\View;
+use App\Views\HomeView;
 
 // require "Views/View.php";
 // require "Views/HomeView.php";

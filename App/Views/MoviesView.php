@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Views;
 class MoviesView extends View
 {
 	public function render() {
